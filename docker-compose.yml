@@ -1,0 +1,25 @@
+version: "3.2"
+
+services:
+  keycloak:
+    build:
+      context: ./plugin
+      dockerfile: Dockerfile
+    environment:
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+    ports:
+      - "8080:8080"
+    networks:
+      - keycloak-network
+
+  users-api:
+    build:
+      context: ./users-api
+      dockerfile: Dockerfile
+    ports:
+      - "1000:1000"
+
+networks:
+  keycloak-network:
+    driver: bridge
